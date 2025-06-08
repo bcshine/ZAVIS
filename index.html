@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZAVIS</title>
+  
+  <!-- PWA 매니페스트 -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- PWA 메타 태그들 -->
+  <meta name="theme-color" content="#f5ecd7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ZAVIS">
+  <link rel="apple-touch-icon" href="mp1.png">
+  
   <!-- 넥슨고딕 웹폰트 CDN (예시: Google Fonts 대체) -->
   <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/NEXON_Gothic.css" rel="stylesheet" type="text/css" />
   <style>
@@ -149,5 +160,20 @@
       물어보세요 'Click!'
     </button>
   </div>
+
+  <!-- 서비스 워커 등록 스크립트 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
 </body>
 </html> 
