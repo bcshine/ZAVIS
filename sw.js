@@ -4,7 +4,8 @@ const urlsToCache = [
   './',
   './index.html',
   './mp1.png',
-  './manifest.json'
+  './manifest.json',
+  './sw.js'
 ];
 
 // 설치 이벤트
