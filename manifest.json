@@ -2,7 +2,7 @@
   "name": "ZAVIS - 사장님의 수퍼앱",
   "short_name": "ZAVIS",
   "description": "통찰적인 조언자, 의사결정 나침반",
-  "start_url": "/",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f5ecd7",
   "theme_color": "#f5ecd7",

@@ -1,10 +1,10 @@
 // 서비스 워커 등록
 const CACHE_NAME = 'zavis-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/mp1.png',
-  '/manifest.json'
+  './',
+  './index.html',
+  './mp1.png',
+  './manifest.json'
 ];
 
 // 설치 이벤트
