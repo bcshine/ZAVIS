@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZAVIS</title>
+  <!-- 넥슨고딕 웹폰트 CDN (예시: Google Fonts 대체) -->
+  <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/NEXON_Gothic.css" rel="stylesheet" type="text/css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'NEXON Gothic', sans-serif;
+      background: #f5ecd7; /* 베이지 */
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 32px 16px 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 24px;
+      letter-spacing: 3px;
+    }
+    .compass {
+      width: 180px;
+      max-width: 80vw;
+      margin-bottom: 28px;
+      display: block;
+    }
+    .desc {
+      font-size: 1.1rem; 
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.7;
+      letter-spacing: -1px;
+    }
+    .desc span {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .ask-btn {
+      width: 50%;
+      max-width: 320px;
+      padding: 16px 0;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: bold;
+      background: #fffbe9;
+      border: 2px solid #e0cfa9;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: background 0.2s, border 0.2s;
+    }
+    .ask-btn:hover {
+      background: #f7efd2;
+      border-color: #d6b98c;
+    }
+    @media (max-width: 500px) {
+      .container { padding-top: 18px; }
+      .title { font-size: 2rem; }
+      .compass { width: 120px; }
+      .desc { font-size: 1rem; }
+      .ask-btn { font-size: 1rem; padding: 12px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">ZAVIS</div>
+    <img src="mp1.png" alt="나침반" class="compass" />
+    <div class="desc">
+      <span>사장님의 수퍼앱</span>
+      <span>통찰적인 조언자</span>
+      <span>의사결정 나침반</span>
+    </div>
+    <button class="ask-btn" onclick="window.location.href='https://chatgpt.com/g/g-68442006f6e881918358da30dbd4ef86-moiris-sajangnimyi-tongcalryeogissneun-joeonja'">
+      물어보세요 'Click!'
+    </button>
+  </div>
+</body>
+</html> 
