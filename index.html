@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>ZAVIS</title>
   
   <!-- PWA 매니페스트 -->
@@ -157,7 +159,10 @@
       <span>의사결정 나침반</span>
     </div>
     <a href="https://chatgpt.com/g/g-684f6e6b9ed48191bb537979053a36cc-naeireumeun-zavis-sajangnimyi-supeoaeb" 
-       target="_blank" class="ask-btn" style="text-decoration: none; display: inline-block; color: black;">물어보세요. 'Click!'</a>
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="ask-btn" 
+       style="text-decoration: none; display: inline-block; color: black;">물어보세요. 'Click!'</a>
     </div>
 
   <!-- 서비스 워커 등록 스크립트 -->
