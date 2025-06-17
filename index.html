@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <base href="./">
   <title>ZAVIS</title>
-  <!-- Updated for docs folder -->
+  <!-- Updated for docs folder v2.1 -->
   
   <!-- PWA 매니페스트 -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json?v=2">
   
   <!-- PWA 메타 태그들 -->
   <meta name="theme-color" content="#f5ecd7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ZAVIS">
-  <link rel="apple-touch-icon" href="mp1.png">
+  <link rel="apple-touch-icon" href="mp1.png?v=2">
   
   <!-- 넥슨고딕 웹폰트 CDN (예시: Google Fonts 대체) -->
   <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/NEXON_Gothic.css" rel="stylesheet" type="text/css" />
@@ -169,19 +172,79 @@
 
   <!-- 서비스 워커 등록 스크립트 -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js', {
-            scope: './'
+    // 강제 캐시 클리어 함수
+    async function clearAllCaches() {
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(
+          cacheNames.map(cacheName => {
+            console.log('Deleting cache:', cacheName);
+            return caches.delete(cacheName);
           })
-          .then(registration => {
-            console.log('SW registered: ', registration);
-          })
-          .catch(registrationError => {
-            console.log('SW registration failed: ', registrationError);
-          });
-      });
+        );
+      }
     }
+
+    // Service Worker 완전 재등록
+    async function forceServiceWorkerUpdate() {
+      if ('serviceWorker' in navigator) {
+        // 1. 모든 캐시 삭제
+        await clearAllCaches();
+        
+        // 2. 기존 Service Worker 제거
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (let registration of registrations) {
+          console.log('Unregistering SW:', registration);
+          await registration.unregister();
+        }
+        
+        // 3. 동적 버전으로 새 Service Worker 등록
+        const timestamp = new Date().getTime();
+        try {
+          const registration = await navigator.serviceWorker.register(`./sw.js?v=${timestamp}`, {
+            scope: './'
+          });
+          console.log('SW registered with timestamp:', timestamp);
+          
+          // 4. 즉시 활성화 대기
+          if (registration.installing) {
+            registration.installing.addEventListener('statechange', (e) => {
+              if (e.target.state === 'activated') {
+                console.log('New SW activated, reloading page...');
+                window.location.reload(true);
+              }
+            });
+          } else if (registration.active) {
+            console.log('SW already active');
+          }
+          
+        } catch (error) {
+          console.log('SW registration failed:', error);
+        }
+      }
+    }
+
+    // 페이지 로드시 실행
+    window.addEventListener('load', () => {
+      // 버전 체크용 로컬스토리지
+      const currentVersion = '2.1';
+      const storedVersion = localStorage.getItem('zavis-version');
+      
+      if (storedVersion !== currentVersion) {
+        console.log('Version mismatch, forcing update...');
+        localStorage.setItem('zavis-version', currentVersion);
+        forceServiceWorkerUpdate();
+      } else {
+        // 일반 등록
+        forceServiceWorkerUpdate();
+      }
+    });
+    
+    // 추가 캐시 무효화 메타 태그
+    const meta = document.createElement('meta');
+    meta.httpEquiv = 'Cache-Control';
+    meta.content = 'no-cache, no-store, must-revalidate, max-age=0';
+    document.head.appendChild(meta);
   </script>
 </body>
 </html> 
